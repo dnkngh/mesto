@@ -6,8 +6,8 @@ let profileEditOpenButton = document.querySelector('.profile__edit-button')
 let profileEditCloseButton = document.querySelector('.popup__close-button');
 
 // --------------- Поля попап-формы
-let nameInput = document.querySelector('.popup__item_input_type_name');
-let aboutInput = document.querySelector('.popup__item_input_type_about');
+let nameInput = document.querySelector('.popup__item_type_name');
+let aboutInput = document.querySelector('.popup__item_type_about');
 
 // --------------- Элементы страницы с данными о пользователе
 let userName = document.querySelector('.profile__name');
