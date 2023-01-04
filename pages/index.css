@@ -2,6 +2,7 @@
 @import url(../fonts/inter.css);
 @import url(../blocks/page/page.css);
 
+@import url(../blocks/button/button.css);
 @import url(../blocks/button/_opacity/button_opacity_eighty.css);
 @import url(../blocks/button/_opacity/button_opacity_fifty.css);
 @import url(../blocks/button/_opacity/button_opacity_sixty.css);
