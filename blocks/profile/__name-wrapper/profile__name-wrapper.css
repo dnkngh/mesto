@@ -9,6 +9,5 @@
 @media screen and (max-width: 899px) {
   .profile__name-wrapper {
     margin-top: 26px;
-    display: flex;
   }
 }

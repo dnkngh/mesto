@@ -9,8 +9,10 @@
   width: 150px;
   height: 50px;
   border: 2px solid #fff;
+  border-radius: 2px;
   box-sizing: border-box;
   justify-self: end;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 899px) {
