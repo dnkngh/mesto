@@ -54,10 +54,9 @@ const createNewPlace = (item) => {
     const newPlace = template.content.querySelector('.elements__element').cloneNode(true);
     const favoriteButton = newPlace.querySelector('.elements__favorite-disabled');
     const deletePlaceButton = newPlace.querySelector('.elements__delete-button');
-
-    newPlace.querySelector('.elements__title').textContent = item.name;
-    newPlace.querySelector('.elements__image').alt = item.name;
-    newPlace.querySelector('.elements__image').src = item.link;
+    const imagePopupElement = document.querySelector('.popup_type_image');
+    const placeImage = newPlace.querySelector('.popup__image');
+    const closeImagePopupButton = imagePopupElement.querySelector('.popup__close-button');
 
     function placeToFavoriteToggle() {
         favoriteButton.classList.toggle('elements__favorite-active');
@@ -67,8 +66,30 @@ const createNewPlace = (item) => {
         evt.target.closest('.elements__element').remove();
     }
 
+    function openImagePopup(imagePopupElement) {
+        imagePopupElement.classList.add('popup_opened');
+        imagePopupElement.querySelector('.popup__image').src = item.link;
+        imagePopupElement.querySelector('.popup__image').alt = item.name;
+        imagePopupElement.querySelector('.popup__image-name').textContent = item.name;
+    }
+
+    function closeImagePopup() {
+        imagePopupElement.classList.remove('popup_opened');
+    }
+
+    newPlace.querySelector('.elements__title').textContent = item.name;
+    newPlace.querySelector('.elements__image').alt = item.name;
+    newPlace.querySelector('.elements__image').src = item.link;
+
     favoriteButton.addEventListener('click', placeToFavoriteToggle);
-    deletePlaceButton.addEventListener('click',deletePlace)
+    deletePlaceButton.addEventListener('click',deletePlace);
+    closeImagePopupButton.addEventListener('click', closeImagePopup);
+    document.addEventListener('keydown', function (evt) {
+        if (evt.key=='Escape') {
+            closeImagePopup();
+        }
+    });
+    newPlace.querySelector('.elements__image').addEventListener('click', () => openImagePopup(imagePopupElement));
 
     return newPlace;
 };
@@ -105,7 +126,7 @@ function handleProfileFormSubmit (evt) {
 
 function handleNewPlaceFormSubmit (evt) {
     evt.preventDefault();
-    let newPlace = createNewPlace({
+    const newPlace = createNewPlace({
             name: newPlaceName.value,
             link: newPlaceImage.value
     })
