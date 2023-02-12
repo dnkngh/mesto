@@ -1,4 +1,4 @@
-.elements__favorite-button {
+.elements__favorite-disabled {
   border: none;
   background-color: transparent;
   background-image: url(../../../images/button-favorite-image-disabled.svg);
