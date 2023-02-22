@@ -69,7 +69,7 @@ const defaultCards = initialCards.map((item) => {
 
 // --------------- Обработчики
 const popupListener = function (evt) {
-    if (evt.key=='Escape') {
+    if (evt.key=='Escape' || evt.target.classList.contains('popup_opened')) {
         const activePopup = document.querySelector('.popup_opened');
         closePopup(activePopup);
     }
@@ -78,11 +78,13 @@ const popupListener = function (evt) {
 function openPopup (popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', popupListener);
+  document.addEventListener('mousedown', popupListener);
 }
 
 function closePopup (popup) {
    popup.classList.remove('popup_opened');
    document.removeEventListener('keydown', popupListener);
+   document.removeEventListener('mousedown', popupListener);
 }
 
 function openProfilePopup() {
@@ -117,8 +119,8 @@ function handleProfileFormSubmit (evt) {
 function handleNewPlaceFormSubmit (evt) {
     evt.preventDefault();
     const newPlace = createNewPlace({
-            name: newPlaceName.value,
-            link: newPlaceImage.value
+        name: newPlaceName.value,
+        link: newPlaceImage.value
     })
     cards.prepend(newPlace);
     newPlaceName.value = '';
@@ -137,3 +139,4 @@ addPlacePopupElement.addEventListener('submit', handleNewPlaceFormSubmit)
 closeImagePopupButton.addEventListener('click', closeImagePopup);
 
 cards.append(...defaultCards);
+

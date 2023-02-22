@@ -49,25 +49,31 @@
 
   <div class="popup popup_type_edit-profile">
     <div class="popup__container">
-      <form class="popup__form">
+      <form class="popup__form" novalidate>
         <h2 class="popup__heading">Редактировать профиль</h2>
         <fieldset class="popup__form-data">
           <input
             class="popup__item popup__item_type_name"
+            name="userName"
+            id="username"
             type="text"
             placeholder="Имя"
-            minlength="1"
+            minlength="2"
+            maxlength="40"
             required
-            name="userName"
           >
+          <span class="popup__error username-error"></span>
           <input
             class="popup__item popup__item_type_about"
+            name="userAbout"
+            id="userabout"
             type="text"
             placeholder="О себе"
-            minlength="1"
+            minlength="2"
+            maxlength="200"
             required
-            name="userAbout"
           >
+          <span class="popup__error userabout-error"></span>
         </fieldset>
         <button type="submit" class="popup__save-button button button_opacity_eighty">Сохранить</button>
       </form>
@@ -81,25 +87,29 @@
 
   <div class="popup popup_type_add-place">
     <div class="popup__container">
-      <form class="popup__form">
+      <form class="popup__form" novalidate>
         <h2 class="popup__heading">Новое место</h2>
         <fieldset class="popup__form-data">
           <input
             class="popup__item popup__item_type_place"
+            name="newPlaceName"
+            id="placename"
             type="text"
             placeholder="Название"
-            minlength="1"
+            minlength="2"
+            maxlength="30"
             required
-            name="newPlaceName"
           >
+          <span class="popup__error placename-error"></span>
           <input
             class="popup__item popup__item_type_image"
-            type="text"
-            placeholder="Ссылка на картинку"
-            minlength="1"
-            required
             name="newPlaceImage"
+            id="placeimage"
+            type="url"
+            placeholder="Ссылка на картинку"
+            required
           >
+          <span class="popup__error placeimage-error"></span>
         </fieldset>
         <button type="submit" class="popup__save-button button button_opacity_eighty">Создать</button>
       </form>
@@ -139,6 +149,7 @@
   </template>
 
   <script src="scripts/cards.js"></script>
+  <script src="scripts/validate.js"></script>
   <script src="scripts/index.js"></script>
 </body>
 </html>
