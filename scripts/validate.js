@@ -12,6 +12,12 @@ const hideInputError = (formElement, inputElement, {inputErrorClass, errorClass}
     errorElement.classList.remove(errorClass);
 };
 
+const checkInputValidity = (inputList) => {
+    return inputList.some(function (inputElement) {
+        return !inputElement.validity.valid;
+    });
+};
+
 const toggleErrorVisibility = (formElement, inputElement, validationConfig) => {
     if (!inputElement.validity.valid) {
         showInputError(formElement, inputElement, inputElement.validationMessage, validationConfig);
@@ -21,19 +27,13 @@ const toggleErrorVisibility = (formElement, inputElement, validationConfig) => {
 };
 
 const toggleButtonState = (inputList, buttonElement, {inactiveButtonClass}) => {
-    if (hasValidInput(inputList)) {
+    if (checkInputValidity(inputList)) {
         buttonElement.classList.add(inactiveButtonClass);
         buttonElement.setAttribute('disabled', true);
     } else {
         buttonElement.classList.remove(inactiveButtonClass);
         buttonElement.removeAttribute('disabled');
     }
-};
-
-const hasValidInput = (inputList) => {
-    return inputList.some(function (inputElement) {
-        return !inputElement.validity.valid;
-    });
 };
 
 const setEventListeners = (formElement, {inputSelector, submitButtonSelector, ...validationConfig}) => {
