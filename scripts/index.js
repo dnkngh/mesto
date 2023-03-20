@@ -1,68 +1,73 @@
-const profileEditFormElement = document.forms['profile-form'];
-const profileEditPopupElement = document.querySelector('.popup_type_edit-profile');
-const addPlacePopupElement = document.querySelector('.popup_type_add-place');
-const imagePopupElement = document.querySelector('.popup_type_image');
-const closeButtons = document.querySelectorAll('.popup__close-button');
+import {
+    profileEditFormElement,
+    profileEditPopupElement,
+    addPlacePopupElement,
+    imagePopupElement,
+    closeButtons,
+    placeImage,
+    placeImageName,
+    profileEditOpenButton,
+    addPlaceOpenButton,
+    nameInput,
+    aboutInput,
+    newPlaceName,
+    newPlaceImage,
+    userName,
+    userAbout,
+    template,
+    cards,
+    validationConfig,
+    initialCards,
+} from './constants.js';
 
-// --------------- Поля изображений
-const placeImage = imagePopupElement.querySelector('.popup__image');
-const placeImageName = imagePopupElement.querySelector('.popup__image-name');
+import { Card } from './Card.js';
 
-// --------------- Кнопки попап-форм
-const profileEditOpenButton = document.querySelector('.profile__edit-button');
-const addPlaceOpenButton = document.querySelector('.profile__add-button');
+import { FormValidator } from './FormValidator.js';
 
-// --------------- Поля попап-формы профиля
-const nameInput = document.querySelector('.popup__item_type_name');
-const aboutInput = document.querySelector('.popup__item_type_about');
 
-// --------------- Поля попап-формы добавления места
-const newPlaceName = document.querySelector('.popup__item_type_place');
-const newPlaceImage = document.querySelector('.popup__item_type_image');
-
-// --------------- Элементы страницы с данными о пользователе
-const userName = document.querySelector('.profile__name');
-const userAbout = document.querySelector('.profile__about');
-
-// --------------- Создание карточки из шаблона
-const template = document.querySelector('.template');
-const cards = document.querySelector('.elements__list');
-
-const createNewPlace = (item) => {
-    const newPlace = template.content.querySelector('.elements__element').cloneNode(true);
-    const favoriteButton = newPlace.querySelector('.elements__favorite-disabled');
-    const deletePlaceButton = newPlace.querySelector('.elements__delete-button');
-    const placeImageElement = newPlace.querySelector('.elements__image')
-
-    function toggleLike() {
-        favoriteButton.classList.toggle('elements__favorite-active');
-    }
-
-    function deletePlace() {
-        newPlace.remove();
-    }
-
-    function openImagePopup() {
-        openPopup(imagePopupElement);
-        placeImage.src = item.link;
-        placeImage.alt = item.name;
-        placeImageName.textContent = item.name;
-    }
-
-    newPlace.querySelector('.elements__title').textContent = item.name;
-    placeImageElement.alt = item.name;
-    placeImageElement.src = item.link;
-
-    favoriteButton.addEventListener('click', toggleLike);
-    deletePlaceButton.addEventListener('click',deletePlace);
-    placeImageElement.addEventListener('click', openImagePopup);
-
-    return newPlace;
+// --------------- Создание карточек
+const handleAddPlace = (item) => {
+    const newPlace = new Card(item, '.template');
+    newPlace.renderContent(cards);
 };
 
-const defaultCards = initialCards.map(createNewPlace)
+initialCards.forEach((item) => {
+    handleAddPlace(item);
+});
+
+function handleNewPlaceFormSubmit (evt) {
+    evt.preventDefault();
+    const newPlace = {
+        name: newPlaceName.value,
+        link: newPlaceImage.value
+    };
+
+    handleAddPlace(newPlace);
+
+    evt.target.reset();
+
+    closeAddPlacePopup();
+}
+
+const profileEditFormValidation = new FormValidator(validationConfig, profileEditFormElement);
+const cardAddFormValidation = new FormValidator(validationConfig, addPlacePopupElement.querySelector('.popup__form'))
+
+profileEditFormValidation._enableValidation();
+cardAddFormValidation._enableValidation();
 
 // --------------- Обработчики
+function openPopup (popup) {
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', handleEscape);
+  document.addEventListener('mousedown', handleOverlay);
+}
+
+function closePopup (popup) {
+   popup.classList.remove('popup_opened');
+   document.removeEventListener('keydown', handleEscape);
+   document.removeEventListener('mousedown', handleOverlay);
+}
+
 const handleEscape = (evt) => {
     if (evt.key=='Escape') {
         const activePopup = document.querySelector('.popup_opened');
@@ -75,18 +80,6 @@ const handleOverlay = (evt) => {
         closePopup(evt.target);
     }
 };
-
-function openPopup (popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', handleEscape);
-  document.addEventListener('mousedown', handleOverlay);
-}
-
-function closePopup (popup) {
-   popup.classList.remove('popup_opened');
-   document.removeEventListener('keydown', handleEscape);
-   document.removeEventListener('mousedown', handleOverlay);
-}
 
 function openProfilePopup() {
     openPopup(profileEditPopupElement);
@@ -113,18 +106,6 @@ function handleProfileFormSubmit (evt) {
     closeProfilePopup();
 }
 
-function handleNewPlaceFormSubmit (evt) {
-    evt.preventDefault();
-    const newPlace = createNewPlace({
-        name: newPlaceName.value,
-        link: newPlaceImage.value
-    })
-    cards.prepend(newPlace);
-    evt.target.reset()
-
-    closeAddPlacePopup();
-}
-
 // --------------- Привязка обработчиков
 profileEditOpenButton.addEventListener('click', openProfilePopup);
 addPlaceOpenButton.addEventListener('click', openAddPlacePopup);
@@ -137,4 +118,4 @@ closeButtons.forEach((button) => {
     button.addEventListener('click', () => closePopup(popup));
 });
 
-cards.append(...defaultCards);
+export {imagePopupElement, placeImageName, placeImage, openPopup}
