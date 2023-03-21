@@ -53,7 +53,7 @@ class FormValidator {
         this._formElement.addEventListener('reset', () => {
             setTimeout(() => {
                 this._toggleButtonState();
-            });
+            }, 0);
         });
 
         this._inputList.forEach((inputElement) => {
@@ -64,7 +64,15 @@ class FormValidator {
         });
     };
 
-    _enableValidation() {
+    resetValidation() {
+        this._formElement.reset();
+        this._toggleButtonState();
+        this._inputList.forEach((inputElement) => {
+            this._hideInputError(inputElement);
+        });
+    }
+
+    enableValidation() {
         this._setEventListeners();
     };
 }

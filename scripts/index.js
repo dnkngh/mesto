@@ -27,8 +27,9 @@ import { FormValidator } from './FormValidator.js';
 
 // --------------- Создание карточек
 const handleAddPlace = (item) => {
-    const newPlace = new Card(item, '.template');
-    newPlace.renderContent(cards);
+    const newPlace = new Card(item, '.template', handleCardClick);
+
+    cards.prepend(newPlace.renderContent());
 };
 
 initialCards.forEach((item) => {
@@ -52,8 +53,8 @@ function handleNewPlaceFormSubmit (evt) {
 const profileEditFormValidation = new FormValidator(validationConfig, profileEditFormElement);
 const cardAddFormValidation = new FormValidator(validationConfig, addPlacePopupElement.querySelector('.popup__form'))
 
-profileEditFormValidation._enableValidation();
-cardAddFormValidation._enableValidation();
+profileEditFormValidation.enableValidation();
+cardAddFormValidation.enableValidation();
 
 // --------------- Обработчики
 function openPopup (popup) {
@@ -92,6 +93,7 @@ function closeProfilePopup() {
 }
 
 function openAddPlacePopup() {
+    cardAddFormValidation.resetValidation();
     openPopup(addPlacePopupElement);
 }
 
@@ -106,9 +108,19 @@ function handleProfileFormSubmit (evt) {
     closeProfilePopup();
 }
 
+function handleCardClick(name, link) {
+    placeImage.src = link;
+    placeImage.alt = name;
+    placeImageName.textContent = name;
+    openPopup(imagePopupElement);
+}
+
+
 // --------------- Привязка обработчиков
 profileEditOpenButton.addEventListener('click', openProfilePopup);
-addPlaceOpenButton.addEventListener('click', openAddPlacePopup);
+addPlaceOpenButton.addEventListener('click', () => {
+    openAddPlacePopup();
+});
 
 profileEditFormElement.addEventListener('submit', handleProfileFormSubmit);
 addPlacePopupElement.addEventListener('submit', handleNewPlaceFormSubmit)
