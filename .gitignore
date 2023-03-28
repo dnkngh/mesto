@@ -1,2 +1,5 @@
 # .idea
 .idea
+# Webpack
+node_modules
+dist
