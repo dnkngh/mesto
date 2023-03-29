@@ -1,5 +1,5 @@
 class Card {
-    constructor(data, templateSelector, handleCardClick) {
+    constructor({ data } , templateSelector, handleCardClick) {
         this._name = data.name;
         this._link = data.link;
         this._templateSelector = templateSelector;
@@ -45,7 +45,6 @@ class Card {
     renderContent() {
         this._getCardTemplate();
         this._setEventListeners();
-
         this._cardImage.src = this._link;
         this._cardImage.alt = this._name;
         this._cardTitle.textContent = this._name;

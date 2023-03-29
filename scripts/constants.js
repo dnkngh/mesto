@@ -10,8 +10,8 @@ const placeImageName = imagePopupElement.querySelector('.popup__image-name');
 
 
 // --------------- Кнопки попап-форм
-const profileEditOpenButton = document.querySelector('.profile__edit-button');
-const addPlaceOpenButton = document.querySelector('.profile__add-button');
+const profileEditButton = document.querySelector('.profile__edit-button');
+const addPlaceButton = document.querySelector('.profile__add-button');
 
 // --------------- Поля попап-формы профиля
 const nameInput = document.querySelector('.popup__item_type_name');
@@ -26,9 +26,15 @@ const userName = document.querySelector('.profile__name');
 const userAbout = document.querySelector('.profile__about');
 
 // --------------- Создание карточки из шаблона
-const template = document.querySelector('.template');
-const cards = document.querySelector('.elements__list');
-
+const templateSelector = '.template';
+const cardListSelector = '.elements__list';
+const cardSelector = '.elements__element';
+const popupNewPlaceSelector = '.popup_type_add-place';
+const popupEditProfileSelector = '.popup_type_edit-profile';
+const popupSelector = '.popup';
+const imagePopupSelector = '.popup_type_image';
+const userNameSelector = '.profile__name';
+const userAboutSelector = '.profile__about';
 
 const validationConfig = {
   formSelector: '.popup__form',
@@ -74,16 +80,22 @@ export {
     closeButtons,
     placeImage,
     placeImageName,
-    profileEditOpenButton,
-    addPlaceOpenButton,
+    profileEditButton,
+    addPlaceButton,
     nameInput,
     aboutInput,
     newPlaceName,
     newPlaceImage,
     userName,
     userAbout,
-    template,
-    cards,
+    templateSelector,
+    cardListSelector,
     validationConfig,
     initialCards,
+    popupNewPlaceSelector,
+    popupEditProfileSelector,
+    cardSelector,
+    imagePopupSelector,
+    userNameSelector,
+    userAboutSelector,
 }

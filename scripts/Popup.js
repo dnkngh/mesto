@@ -29,7 +29,7 @@ class Popup {
     };
 
     setEventListeners() {
-        this._popupElement.querySelector('.popup__close-button').addEventListener('click', this.close); // проверить
+        this._popupElement.querySelector('.popup__close-button').addEventListener('click', _ => this.close());
     };
 }
 
