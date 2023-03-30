@@ -18,14 +18,14 @@ class Popup {
     open() {
         this._popupElement.classList.add('popup_opened');
         this._popupElement.addEventListener('mousedown', this._handleOverlayClick.bind(this));
-        document.addEventListener('keydown', this._handleEscClose);
+        document.addEventListener('keydown', this._handleEscClose.bind(this));
 
     };
 
     close() {
         this._popupElement.classList.remove('popup_opened');
         this._popupElement.removeEventListener('mousedown', this._handleOverlayClick);
-        document.removeEventListener('keydown', this._handleEscClose);
+        document.removeEventListener('keydown', this._handleEscClose.bind(this));
     };
 
     setEventListeners() {

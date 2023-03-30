@@ -8,7 +8,6 @@ const closeButtons = document.querySelectorAll('.popup__close-button');
 const placeImage = imagePopupElement.querySelector('.popup__image');
 const placeImageName = imagePopupElement.querySelector('.popup__image-name');
 
-
 // --------------- Кнопки попап-форм
 const profileEditButton = document.querySelector('.profile__edit-button');
 const addPlaceButton = document.querySelector('.profile__add-button');
@@ -31,7 +30,6 @@ const cardListSelector = '.elements__list';
 const cardSelector = '.elements__element';
 const popupNewPlaceSelector = '.popup_type_add-place';
 const popupEditProfileSelector = '.popup_type_edit-profile';
-const popupSelector = '.popup';
 const imagePopupSelector = '.popup_type_image';
 const userNameSelector = '.profile__name';
 const userAboutSelector = '.profile__about';

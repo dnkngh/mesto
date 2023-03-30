@@ -17,7 +17,7 @@ class Section {
         });
     };
 
-    _addItem(element) {
+    addItem(element) {
         this._container.prepend(element);
     };
 }

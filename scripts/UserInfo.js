@@ -15,7 +15,7 @@ class UserInfo {
     };
 
     setUserInfo() {
-        this._userInfo.textContent = this._userNameInput.value;
+        this._userName.textContent = this._userNameInput.value;
         this._userAbout.textContent = this._userAboutInput.value;
     };
 }
