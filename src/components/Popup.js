@@ -1,6 +1,7 @@
 class Popup {
     constructor(popupSelector) {
         this._popupElement = document.querySelector(popupSelector);
+        this._handleEscClose = this._handleEscClose.bind(this);
     };
 
     _handleEscClose(evt) {
@@ -11,21 +12,21 @@ class Popup {
 
     _handleOverlayClick(evt) {
         if (evt.target.classList.contains('popup_opened')) {
-            this.close(evt.target);
+            this.close();
         }
     }
 
     open() {
         this._popupElement.classList.add('popup_opened');
         this._popupElement.addEventListener('mousedown', this._handleOverlayClick.bind(this));
-        document.addEventListener('keydown', this._handleEscClose.bind(this));
+        document.addEventListener('keydown', this._handleEscClose);
 
     };
 
     close() {
         this._popupElement.classList.remove('popup_opened');
         this._popupElement.removeEventListener('mousedown', this._handleOverlayClick);
-        document.removeEventListener('keydown', this._handleEscClose.bind(this));
+        document.removeEventListener('keydown', this._handleEscClose);
     };
 
     setEventListeners() {
