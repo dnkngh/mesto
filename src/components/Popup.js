@@ -2,6 +2,7 @@ class Popup {
     constructor(popupSelector) {
         this._popupElement = document.querySelector(popupSelector);
         this._handleEscClose = this._handleEscClose.bind(this);
+        this._handleOverlayClick = this._handleOverlayClick.bind(this);
     };
 
     _handleEscClose(evt) {
@@ -18,9 +19,8 @@ class Popup {
 
     open() {
         this._popupElement.classList.add('popup_opened');
-        this._popupElement.addEventListener('mousedown', this._handleOverlayClick.bind(this));
+        this._popupElement.addEventListener('mousedown', this._handleOverlayClick);
         document.addEventListener('keydown', this._handleEscClose);
-
     };
 
     close() {
