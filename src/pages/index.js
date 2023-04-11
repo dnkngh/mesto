@@ -1,8 +1,12 @@
 import {
+    userAvatarSelector,
     addPlaceButton,
+    avatarEditButton,
     cardListSelector,
     initialCards,
     imagePopupSelector,
+    popupConfirmDeleteSelector,
+    popupEditAvatarSelector,
     popupEditProfileSelector,
     popupNewPlaceSelector,
     profileEditButton,
@@ -14,6 +18,7 @@ import {
 
 import {Card} from '../components/Card.js';
 import {FormValidator} from '../components/FormValidator.js';
+import {PopupWithConfirm} from "../components/PopupWithConfirm.js";
 import {PopupWithImage} from "../components/PopupWithImage.js";
 import {PopupWithForm} from "../components/PopupWithForm.js";
 import {Section} from "../components/Section.js";
@@ -29,6 +34,7 @@ const createCard = (data) => {
         { data: data },
         templateSelector,
         _ => { popupWithImage.open(data) },
+        _ => { popupWithConfirm.open() },
     );
     return card.renderContent();
 };
@@ -57,11 +63,21 @@ const handleProfileDataSubmit = (inputValues) => {
     userInfo.setUserInfo(inputValues);
 };
 
+const handleUpdateAvatarSubmit = (inputValues) => {
+    userInfo.setUserInfo()
+}
+
 const popupEditProfileForm = new PopupWithForm(popupEditProfileSelector, handleProfileDataSubmit);
 popupEditProfileForm.setEventListeners();
 
+const popupEditAvatarForm = new PopupWithForm(popupEditAvatarSelector, )
+popupEditAvatarForm.setEventListeners();
+
 const popupWithImage = new PopupWithImage(imagePopupSelector);
 popupWithImage.setEventListeners();
+
+const popupWithConfirm = new PopupWithConfirm(popupConfirmDeleteSelector);
+popupWithConfirm.setEventListeners();
 
 // --------------- Валидаторы
 
@@ -84,6 +100,7 @@ enableValidation(validationConfig);
 const userInfo = new UserInfo({
     userName: userNameSelector,
     userAbout: userAboutSelector,
+    userAvatar: userAvatarSelector,
 });
 
 // --------------- Привязка обработчиков
@@ -91,6 +108,11 @@ addPlaceButton.addEventListener('click', () => {
     formValidators['card-form'].resetValidation();
     popupAddPlaceForm.open();
 });
+
+avatarEditButton.addEventListener('click', () => {
+    formValidators['avatar-form'].resetValidation();
+    popupEditAvatarForm.open();
+})
 
 profileEditButton.addEventListener('click', () => {
     formValidators['profile-form'].resetValidation();

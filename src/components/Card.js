@@ -1,10 +1,11 @@
 class Card {
-    constructor({ data } , templateSelector, handleCardClick) {
+    constructor({ data } , templateSelector, handleCardClick, handleDeleteClick,) {
         this._name = data.name;
         this._link = data.link;
         this._templateSelector = templateSelector;
         this._cardSelector = '.elements__element';
         this._handleCardClick = handleCardClick;
+        this._handleDeleteClick = handleDeleteClick;
     };
 
     _handleDelete() {
@@ -30,7 +31,7 @@ class Card {
         this._cardTitle = this._view.querySelector('.elements__title')
 
         this._deleteButton.addEventListener('click', () => {
-            this._handleDelete();
+            this._handleDeleteClick();
         });
 
         this._likeButton.addEventListener('click', () => {

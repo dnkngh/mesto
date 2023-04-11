@@ -11,6 +11,7 @@ const placeImageName = imagePopupElement.querySelector('.popup__image-name');
 // --------------- Кнопки попап-форм
 const profileEditButton = document.querySelector('.profile__edit-button');
 const addPlaceButton = document.querySelector('.profile__add-button');
+const avatarEditButton = document.querySelector('.profile__avatar-edit-button');
 
 // --------------- Поля попап-формы профиля
 const nameInput = document.querySelector('.popup__item_type_name');
@@ -30,9 +31,13 @@ const cardListSelector = '.elements__list';
 const cardSelector = '.elements__element';
 const popupNewPlaceSelector = '.popup_type_add-place';
 const popupEditProfileSelector = '.popup_type_edit-profile';
+const popupEditAvatarSelector = '.popup_type_update-avatar';
+const popupConfirmDeleteSelector = '.popup_type_confirm-delete';
 const imagePopupSelector = '.popup_type_image';
 const userNameSelector = '.profile__name';
 const userAboutSelector = '.profile__about';
+const userAvatarSelector = '.profile__avatar';
+
 
 const validationConfig = {
   formSelector: '.popup__form',
@@ -71,9 +76,11 @@ const initialCards = [
 ];
 
 export {
+    userAvatarSelector,
     profileEditFormElement,
     profileEditPopupElement,
     addPlacePopupElement,
+    avatarEditButton,
     imagePopupElement,
     closeButtons,
     placeImage,
@@ -90,6 +97,8 @@ export {
     cardListSelector,
     validationConfig,
     initialCards,
+    popupConfirmDeleteSelector,
+    popupEditAvatarSelector,
     popupNewPlaceSelector,
     popupEditProfileSelector,
     cardSelector,
