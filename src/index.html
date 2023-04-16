@@ -15,7 +15,7 @@
 
   <main class="content">
     <section class="profile">
-      <img src="<%=require('./images/avatar.png')%>" alt="Аватар" class="profile__avatar">
+      <img src="." alt="Аватар" class="profile__avatar">
       <button type="button" class="profile__avatar-edit-button"></button>
       <div class="profile__info">
         <div class="profile__name-wrapper">
@@ -187,11 +187,14 @@
       <img src=".." alt="" class="elements__image">
       <div class="elements__description">
         <h2 class="elements__title"></h2>
-        <button
-          type="button"
-          class="elements__favorite-disabled button button_opacity_fifty"
-          aria-label="Добавить в избранное"
-        ></button>
+        <div class="elements__favorite-container">
+          <button
+            type="button"
+            class="elements__favorite-disabled button button_opacity_fifty"
+            aria-label="Добавить в избранное"
+          ></button>
+          <span class="elements__favorite-count">0</span>
+        </div>
         <button class="elements__delete-button"></button>
       </div>
     </article>

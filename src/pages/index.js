@@ -27,8 +27,8 @@ import {UserInfo} from "../components/UserInfo.js";
 import './index.css';
 
 
-const errorHandler = (err) => {
-    console.log(err)
+const errorHandler = (error) => {
+    console.log(error);
 };
 
 // --------------- API
@@ -61,8 +61,9 @@ const createCard = (data) => {
                   });
             });
         },
-      api,
-      userId,
+        _ => card.handleLike(),
+        api,
+        userId,
     );
     return card.renderCardContent();
 };
@@ -85,7 +86,7 @@ const popupAddPlaceForm = new PopupWithForm(
             const card = createCard(data);
             cardSection.addItem(card);
           })
-          .catch((error) => errorHandler(error))
+          .catch(error => errorHandler(error))
           .finally(() => popupAddPlaceForm.handleLoading(false));
     }
 );
@@ -145,6 +146,7 @@ const userInfo = new UserInfo({
     userAvatar: userAvatarSelector,
 });
 
+
 // --------------- Привязка обработчиков
 addPlaceButton.addEventListener('click', () => {
     formValidators['card-form'].resetValidation();
@@ -163,7 +165,6 @@ profileEditButton.addEventListener('click', () => {
 
     popupEditProfileForm.open();
 });
-
 
 let userId;
 api.gatherInitialData().then(

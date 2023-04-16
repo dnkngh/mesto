@@ -13,6 +13,8 @@
 @import url(../blocks/elements/__delete-button/elements__delete-button.css);
 @import url(../blocks/elements/__description/elements__description.css);
 @import url(../blocks/elements/__element/elements__element.css);
+@import url(../blocks/elements/__favorite-container/elements__favorite-container.css);
+@import url(../blocks/elements/__favorite-count/elements__favorite-count.css);
 @import url(../blocks/elements/__favorite-disabled/elements__favorite-disabled.css);
 @import url(../blocks/elements/__favorite-active/elements__favorite-active.css);
 @import url(../blocks/elements/__image/elements__image.css);
