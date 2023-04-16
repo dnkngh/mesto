@@ -1,14 +1,21 @@
 class Card {
-    constructor({ data } , templateSelector, handleCardClick, handleDeleteClick,) {
+    constructor({ data } , templateSelector, handleCardClick, handleDeleteClick, api, userId) {
         this._name = data.name;
         this._link = data.link;
+
         this._templateSelector = templateSelector;
         this._cardSelector = '.elements__element';
+
         this._handleCardClick = handleCardClick;
         this._handleDeleteClick = handleDeleteClick;
+
+        this._api = api;
+        this._cardId = data._id;
+        this._authorId = data.owner._id;
+        this._userId = userId;
     };
 
-    _handleDelete() {
+    handleDelete() {
         this._view.closest(this._cardSelector).remove();
     };
 
@@ -43,13 +50,17 @@ class Card {
         });
     };
 
-    renderContent() {
+    renderCardContent() {
         this._getCardTemplate();
         this._setEventListeners();
+
         this._cardImage.src = this._link;
         this._cardImage.alt = this._name;
         this._cardTitle.textContent = this._name;
 
+        if(!(this._authorId === this._userId)) {
+            this._deleteButton.style.display = 'none';
+        }
         return this._view;
     }
 }

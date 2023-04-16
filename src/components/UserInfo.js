@@ -14,12 +14,12 @@ class UserInfo {
     };
 
     setUserInfo(inputValues) {
-        this._userName.textContent = inputValues.username;
-        this._userAbout.textContent = inputValues.userabout;
-        this._setUserAvatar(inputValues.useravatar);
+        this._userName.textContent = inputValues.name;
+        this._userAbout.textContent = inputValues.about;
+        this.setUserAvatar(inputValues.avatar);
     };
 
-    _setUserAvatar(url) {
+    setUserAvatar(url) {
         this._userAvatar.src = url;
     };
 }
