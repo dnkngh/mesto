@@ -4,6 +4,10 @@ class Api {
     this._headers = options.headers;
   };
 
+  _request(url, options) {
+    return fetch(url, options).then(this._checkResponse);
+  };
+
   _checkResponse(res) {
     if (res.ok) {
       return res.json();
@@ -12,50 +16,55 @@ class Api {
   };
 
   _getInitialCards() {
-    return fetch(
+    return this._request(
       this._baseUrl + 'cards',
       {
         method: 'GET',
         headers: this._headers,
       },
-    ).then(this._checkResponse);
+    );
   };
 
   _getUserInfo() {
-    return fetch(
+    return this._request(
       this._baseUrl + 'users/me',
       {
         method: 'GET',
         headers: this._headers,
       },
-    ).then(this._checkResponse);
+    );
   };
 
   setUserInfo(inputValues) {
-    return fetch(this._baseUrl + 'users/me',
+    return this._request(
+      this._baseUrl + 'users/me',
       {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: inputValues.username,
-        about: inputValues.userabout,
-      }),
-    }).then(this._checkResponse);
+        method: 'PATCH',
+        headers: this._headers,
+        body: JSON.stringify({
+          name: inputValues.username,
+          about: inputValues.userabout,
+        }),
+      },
+    );
   };
 
   setUserAvatar(inputValues) {
-    return fetch(this._baseUrl + 'users/me/avatar',
+    return this._request(
+      this._baseUrl + 'users/me/avatar',
       {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
-        avatar: inputValues.useravatar,
-      }),
-    }).then(this._checkResponse);
+        method: 'PATCH',
+        headers: this._headers,
+        body: JSON.stringify({
+          avatar: inputValues.useravatar,
+        }),
+      },
+    );
   };
 
-  _addCard(data) {
-    return fetch(this._baseUrl + 'cards',
+  addCard(data) {
+    return this._request(
+      this._baseUrl + 'cards',
       {
         method: 'POST',
         headers: this._headers,
@@ -63,38 +72,38 @@ class Api {
           name: data.name,
           link: data.link,
         }),
-      }
-    ).then(this._checkResponse);
+      },
+    );
   };
 
   deleteCard(id) {
-    return fetch(
+    return this._request(
       this._baseUrl + `cards/${id}`,
       {
         method: 'DELETE',
         headers: this._headers,
-      }
-    ).then(this._checkResponse);
+      },
+    );
   };
 
   likeCard(id) {
-    return fetch(
+    return this._request(
       this._baseUrl + `cards/likes/${id}`,
       {
         method: 'PUT',
         headers: this._headers,
-      }
-    ).then(this._checkResponse);
+      },
+    );
   };
 
   dislikeCard(id) {
-    return fetch(
+    return this._request(
       this._baseUrl + `cards/likes/${id}`,
       {
         method: 'DELETE',
         headers: this._headers,
-      }
-    ).then(this._checkResponse);
+      },
+    );
   };
 
   gatherInitialData() {

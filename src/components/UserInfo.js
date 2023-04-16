@@ -13,10 +13,10 @@ class UserInfo {
         return this._userInfo;
     };
 
-    setUserInfo(inputValues) {
-        this._userName.textContent = inputValues.name;
-        this._userAbout.textContent = inputValues.about;
-        this.setUserAvatar(inputValues.avatar);
+    setUserInfo({ name, about, avatar, _id }) {
+        this._userName.textContent = name;
+        this._userAbout.textContent = about;
+        this.setUserAvatar(avatar);
     };
 
     setUserAvatar(url) {

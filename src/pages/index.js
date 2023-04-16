@@ -27,7 +27,7 @@ import {UserInfo} from "../components/UserInfo.js";
 import './index.css';
 
 
-const errorHandler = (error) => {
+const handleError = (error) => {
     console.log(error);
 };
 
@@ -53,12 +53,12 @@ const createCard = (data) => {
             popupWithConfirm.setConfirmHandler(() => {
                 popupWithConfirm.handleLoading(true);
                 api.deleteCard(data._id)
-                  .then(() => {card.handleDelete()})
-                  .catch(error => errorHandler(error))
-                  .finally(() => {
-                      popupWithConfirm.handleLoading(false)
-                      popupWithConfirm.close()
-                  });
+                  .then(() => {
+                    card.handleDelete();
+                    popupWithConfirm.close();
+                  })
+                  .catch(error => handleError(error))
+                  .finally(() => {popupWithConfirm.handleLoading(false)});
             });
         },
         _ => card.handleLike(),
@@ -81,12 +81,13 @@ const popupAddPlaceForm = new PopupWithForm(
     popupNewPlaceSelector,
     (newPlace) => {
         popupAddPlaceForm.handleLoading(true);
-        api._addCard(newPlace)
+        api.addCard(newPlace)
           .then((data) => {
             const card = createCard(data);
             cardSection.addItem(card);
+            popupAddPlaceForm.close();
           })
-          .catch(error => errorHandler(error))
+          .catch(error => handleError(error))
           .finally(() => popupAddPlaceForm.handleLoading(false));
     }
 );
@@ -97,8 +98,16 @@ const popupEditProfileForm = new PopupWithForm(
   (inputValues) => {
     popupEditProfileForm.handleLoading(true);
     api.setUserInfo(inputValues)
-        .then(data => userInfo.setUserInfo(data))
-        .catch(error => errorHandler(error))
+        .then(data => {
+          userInfo.setUserInfo({
+            name: data.name,
+            about: data.about,
+            avatar: data.avatar,
+            _id: data._id,
+          });
+          popupEditProfileForm.close();
+        })
+        .catch(error => handleError(error))
         .finally(() => popupEditProfileForm.handleLoading(false));
   },
 );
@@ -109,8 +118,11 @@ const popupEditAvatarForm = new PopupWithForm(
   (inputValues) => {
       popupEditAvatarForm.handleLoading(true);
       api.setUserAvatar(inputValues)
-        .then(inputValues => userInfo.setUserAvatar(inputValues.avatar))
-        .catch(error => errorHandler(error))
+        .then(inputValues => {
+          userInfo.setUserAvatar(inputValues.avatar);
+          popupEditAvatarForm.close();
+        })
+        .catch(error => handleError(error))
         .finally(() => popupEditAvatarForm.handleLoading(false));
   }
 );
@@ -171,9 +183,14 @@ api.gatherInitialData().then(
     (args) => {
         const [initialCardsData, initialUserData] = args;
 
-        userInfo.setUserInfo(initialUserData);
+        userInfo.setUserInfo({
+          name: initialUserData.name,
+          about: initialUserData.about,
+          avatar: initialUserData.avatar,
+          _id: initialUserData._id,
+        });
         userId = initialUserData._id;
 
         cardSection.renderItems(initialCardsData);
     }
-).catch(error => errorHandler(error));
+).catch(error => handleError(error));

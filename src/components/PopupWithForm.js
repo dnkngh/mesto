@@ -29,7 +29,7 @@ class PopupWithForm extends Popup {
 
     handleLoading(isLoading) {
         if(isLoading) {
-            this._popupSubmitButton.textContent += 'Сохранение...'
+            this._popupSubmitButton.textContent = 'Сохранение...'
         } else {
             this._popupSubmitButton.textContent = this._popupSubmitButtonDefaultContent;
         }
@@ -46,7 +46,6 @@ class PopupWithForm extends Popup {
             evt.preventDefault();
             const inputValues = this._getInputValues();
             this._submitFunction(inputValues);
-            this.close();
         });
     };
 }
